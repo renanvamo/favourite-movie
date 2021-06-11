@@ -23,25 +23,28 @@ class App extends React.Component {
   }
 
   async getMovies() {
-    const { searchValue } = this.state;
-    const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=a05e989d`;
-    await fetch(url)
+    const { searchValue, movies } = this.state;
+    const headers = { }
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=8d11dad924e05cee382c64587720ae74&language=pt-br&query=${searchValue}&page=1&include_adult=true`;
+    await fetch(url, headers)
       .then(response => response.json()
-      .then((movies) => this.setState({ movies: movies.Search })));
+      .then(({ results }) => (
+        this.setState({ movies: results })         
+      )));
   }
-  
+
   render() {
     const { movies, searchValue } = this.state;
     return (
-      <div className='container-fluid movie-app'>
-        <div className='row d-flex align-items-center mt-4 mb-4'>
+      <main className=''>
+        <header className='header'>
           <MovieListHeading heading='My Favourite Movies' />
           <SearchBox searchValue={ searchValue } handleSearch={ this.handleSearch }/>
-        </div>
-        <div className='row'>
-          <MovieCards movies={ movies } />
-        </div>
-		  </div>
+        </header>
+        <section className='movie-container'>
+          { movies ? <MovieCards movies={ movies } /> : <span></span>}
+        </section>
+		  </main>
     );
   }
 }
