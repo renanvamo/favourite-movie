@@ -15,18 +15,17 @@ class App extends React.Component {
     };
   }
 
-  handleSearch({ target }) {
-    this.setState({
+  async handleSearch({ target }) {
+    await this.setState({
       searchValue: target.value
     });
     this.getMovies()
   }
 
   async getMovies() {
-    const { searchValue, movies } = this.state;
-    const headers = { }
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=8d11dad924e05cee382c64587720ae74&language=pt-br&query=${searchValue}&page=1&include_adult=true`;
-    await fetch(url, headers)
+    const { searchValue } = this.state;
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=8d11dad924e05cee382c64587720ae74&language=pt-BR&query=${searchValue}&page=1&include_adult=true`;
+    await fetch(url)
       .then(response => response.json()
       .then(({ results }) => (
         this.setState({ movies: results })         
@@ -41,7 +40,7 @@ class App extends React.Component {
           <MovieListHeading heading='My Favourite Movies' />
           <SearchBox searchValue={ searchValue } handleSearch={ this.handleSearch }/>
         </header>
-        <section className='movie-container'>
+        <section className='movies-container'>
           { movies ? <MovieCards movies={ movies } /> : <span></span>}
         </section>
 		  </main>
