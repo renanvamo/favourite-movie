@@ -41,7 +41,7 @@ class App extends React.Component {
           <SearchBox searchValue={ searchValue } handleSearch={ this.handleSearch }/>
         </header>
         <section className='movies-container'>
-          { movies ? <MovieCards movies={ movies } /> : <span></span>}
+          { movies ? <MovieCards movies={ movies } key={ movies.original_title }/> : <span></span>}
         </section>
 		  </main>
     );

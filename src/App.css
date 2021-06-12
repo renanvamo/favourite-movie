@@ -34,7 +34,7 @@ img {
 .movie-card:hover {
 	cursor: pointer;
 	transform: scale(1.2);
-	transition: transform 0.2s;
+	transition: transform 0.3s;
 }
 
 .image-container:hover .overlay {
